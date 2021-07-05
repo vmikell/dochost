@@ -1,167 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>dochost</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Oxygen:wght@300&display=swap"
-      rel="stylesheet"
-    />
-  </head>
-  <style>
-    *,
-    *::before,
-    *::after {
-      padding: 0;
-      margin: 0;
-      box-sizing: border-box;
-    }
 
-    .container {
-      position: absolute;
-      top: 0;
-      left: 0;
-      font-family: 'Oxygen', sans-serif;
-      background-image: url('./omar-tursic-7VLi-joP750-unsplash.jpg');
-      background-size: cover;
-      width: 100vw;
-      height: 100vh;
-    }
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>dochost</title>
+  <link rel="icon" href="/code.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Oxygen:wght@300&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/style.css">
+</head>
 
-    .container h1,
-    p {
-      color: white;
-      text-align: center;
-    }
-
-    .input-container {
-      margin-top: 3rem;
-    }
-
-    input {
-      display: block;
-      margin: auto;
-      margin-top: 1rem;
-      padding: 0.5rem;
-      width: 15rem;
-      border-radius: 15px;
-      border: none;
-      outline:none;
-    }
-
-    .submit-btn {
-      display: block;
-      margin: auto;
-      margin-top: 0.5rem;
-      background: none;
-      color: white;
-      padding: 0.5rem;
-      border: 2px solid white;
-      border-radius: 50%;
-      height: 5rem;
-      width: 5rem;
-      cursor:pointer;
-    }
-    .copy-btn{
-      display: block;
-      margin: auto;
-      margin-top: 0.5rem;
-      background: none;
-      color: white;
-      padding: 0.5rem;
-      border: 2px solid white;
-      border-radius: 50%;
-      height: 3rem;
-      width: 3rem;
-      cursor:pointer;
-    }
-
-    footer {
-      position: absolute;
-      bottom: 0;
-      color: white;
-      width: 100%;
-      text-align: center;
-    }
-    .new-link-container,
-    .new-link {
-      display: flex;
-      margin: auto;
-      margin-top: 0.5rem;
-      width: fit-content;
-      padding:.75rem;
-      border-radius:5px;
-    }
-    .new-link-container{
-      background-color: rgba(0, 0, 0, 0.75);
-    }
-    footer a {
-      color: inherit;
-      text-decoration: none;
-    }
-  </style>
-
-  <body>
-    <div class="container">
-      <header>
-        <h1>dochost</h1>
-        <p>use your google drive account to host images for your projects</p>
-      </header>
-      <div class="input-container">
-        <p>enter your sharable google docs link</p>
-        <form action="">
-          <input
-          type="url"
-          placeholder="https://drive.google.com/file/..."
-          class="url"
-          id="user-url"
-          required
-        />
+<body>
+  <div class="container">
+    <header>
+      <h1>dochost</h1>
+      <p>use your google drive account to host images for your projects</p>
+    </header>
+    <div class="input-container">
+      <p>enter your sharable google docs link</p>
+      <form id="form">
+        <input type="url" placeholder="https://drive.google.com/file/..." class="url" id="user-url" required />
+        <p class="example">e.g. https://drive.google.com/file/d/1RY4-s0wnXj7-lM_7p-QmyFhXcGp242rm/view?usp=sharing</p>
         <button type="button" class="submit-btn" id="submit-btn">submit</button>
-      </div>
-      <div class="new-link-container">
-        <p class="new-link" id="new-link">your new link...</p>
-        <button class="copy-btn">copy</button>
-        </form>
-        
-      </div>
-      <footer>
-        image credit:
-        <a
-          href="https://unsplash.com/@omar_dc?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"
-          >Omar Tursić </a
-        >-|- created by <a href="https://victormikell.com">Victor Mikell</a>
-      </footer>
     </div>
+    <div class="new-link-container">
+    </div>
+    </form>
+    <footer>
+      image credit:
+      <a href="https://unsplash.com/@omar_dc?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Omar
+        Tursić </a>-|- created by <a href="https://victormikell.com">Victor Mikell</a>
+    </footer>
+  </div>
 
-    <script>
-      
-    let directLink = '';
-    document.getElementById('submit-btn').onclick = function generateLink() {
-        let url = document.getElementById('user-url').value;
-        url = url.split('/');
-        directLink = 'https://drive.google.com/uc?id=' + url[5];
-        document.getElementById('new-link').innerHTML = directLink;
-    };
+  <script src="/index.js"></script>
+</body>
 
-    document.querySelector("#copy").addEventListener("click", copy);
-
-    function copy() {
-        let text = directLink;
-        let input = document.createElement('input');
-        input.setAttribute('value', text);
-        document.body.appendChild(input);
-        input.select();
-        document.execCommand('copy');
-        document.body.removeChild(input);
-        alert('Copied!');
-    }
-
-
-    </script>
-  </body>
 </html>
