@@ -115,15 +115,16 @@
         <p>enter your sharable google docs link</p>
         <form action="">
           <input
-          type="text"
+          type="url"
           placeholder="https://drive.google.com/file/..."
           class="url"
+          id="user-url"
           required
         />
-        <input type="submit" class="submit-btn">
+        <button type="submit" class="submit-btn" id="submit-btn">submit</button>
       </div>
       <div class="new-link-container">
-        <p class="new-link">your new link...</p>
+        <p class="new-link" id="new-link">your new link...</p>
         <button class="copy-btn">copy</button>
         </form>
         
@@ -138,29 +139,29 @@
     </div>
 
     <script>
-      let hostingLink = ''
-      document.querySelector('.submit-btn').onclick = function generateLink() {
-        let url = document.querySelector('.url').value
-        if(url == ''){
-          alert('please enter your google drive url')
-        } else { 
-        url = url.split('/')
-          hostingLink = 'https://drive.google.com/uc?id=' + url[5]
-          document.querySelector('.new-link').innerText = hostingLink  
-      }}
+      
+    let directLink = '';
+    document.getElementById('submit-btn').onclick = function generateLink() {
+        let url = document.getElementById('user-url').value;
+        url = url.split('/');
+        directLink = 'https://drive.google.com/uc?id=' + url[5];
+        document.getElementById('new-link').innerHTML = directLink;
+    };
 
-      document.querySelector('.copy-btn').addEventListener('click', copy)
+    document.querySelector("#copy").addEventListener("click", copy);
 
-      function copy() {
-        let text = hostingLink
-        let input = document.createElement('input')
-        input.setAttribute('value', text)
-        document.body.appendChild(input)
-        input.select()
-        document.execCommand('copy')
-        document.body.removeChild(input)
-        alert('copied to clipboard!')
-      }
+    function copy() {
+        let text = directLink;
+        let input = document.createElement('input');
+        input.setAttribute('value', text);
+        document.body.appendChild(input);
+        input.select();
+        document.execCommand('copy');
+        document.body.removeChild(input);
+        alert('Copied!');
+    }
+
+
     </script>
   </body>
 </html>
